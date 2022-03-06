@@ -197,15 +197,16 @@ const httpServer = app.listen(port, () => {
   console.log(`Le serveur écoute le port ${port}`);
 });
 
-
-
-
 //////////////////////////////////////////////////////////////////////////////////////
-
 
 const io = require("socket.io");
 const Server = io.Server;
-const ioServer = new Server(httpServer);
+const ioServer = new Server(httpServer, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
+});
 const randomColor = require("randomcolor");
 const { setInterval } = require("timers");
 
