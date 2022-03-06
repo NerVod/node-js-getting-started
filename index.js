@@ -201,12 +201,7 @@ const httpServer = app.listen(port, () => {
 
 const io = require("socket.io");
 const Server = io.Server;
-const ioServer = new Server(httpServer, {
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST"],
-  },
-});
+const ioServer = new Server(httpServer);
 const randomColor = require("randomcolor");
 const { setInterval } = require("timers");
 
