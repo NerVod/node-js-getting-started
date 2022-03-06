@@ -20,9 +20,8 @@ window.document.addEventListener("DOMContentLoaded", () => {
   };
 
   if (typeof io !== "undefined") {
-    const socket =
-      /*io("https://squidsun.herokuapp.com/");*/
-      io("http://192.168.1.19:3001");
+    const socket = io("https://shielded-oasis-32043.herokuapp.com/");
+    // io("http://192.168.1.19:3001");
 
     socket.on("updateOrCreatePlayer", (player) => {
       const playerElement = updateOrCreatePlayer(player);
