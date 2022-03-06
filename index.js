@@ -201,7 +201,12 @@ const httpServer = app.listen(port, () => {
 
 const io = require("socket.io");
 const Server = io.Server;
-const ioServer = new Server(httpServer);
+const ioServer = new Server(httpServer, {
+  cors: {
+    origin: "https://shielded-oasis-32043.herokuapp.com",
+    methods: ["GET", "POST"],
+  },
+});
 const randomColor = require("randomcolor");
 const { setInterval } = require("timers");
 
