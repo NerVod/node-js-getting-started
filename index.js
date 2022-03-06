@@ -19,7 +19,7 @@ const app = express();
 
 // console.log("résultats recherche ip objet :", objetIp);
 // console.log("résultats recherche ip :", objetIp["results"]["Ethernet 2"][0]);
-
+console.log("index js chargé");
 app.use("/css", express.static(path.join(__dirname, "public/css")));
 app.use("/js", express.static(path.join(__dirname, "public/js")));
 app.use("/img", express.static(path.join(__dirname, "public/images")));
@@ -196,3 +196,11 @@ app.post("/login", (req, res) => {
 const httpServer = app.listen(port, () => {
   console.log(`Le serveur écoute le port ${port}`);
 });
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+
+
