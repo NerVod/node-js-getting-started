@@ -17,8 +17,8 @@ const app = express();
 
 // détecter ip serveur à placer dans js client
 
-console.log("résultats recherche ip objet :", objetIp);
-console.log("résultats recherche ip :", objetIp["results"]["Ethernet 2"][0]);
+// console.log("résultats recherche ip objet :", objetIp);
+// console.log("résultats recherche ip :", objetIp["results"]["Ethernet 2"][0]);
 
 app.use("/css", express.static(path.join(__dirname, "public/css")));
 app.use("/js", express.static(path.join(__dirname, "public/js")));
