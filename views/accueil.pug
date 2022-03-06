@@ -1,0 +1,19 @@
+extends template.pug 
+block content 
+    p.bienVoir  Pr&ecirc;t pour un duel mortel ? Identifie-toi si tu l&apos;oses ...
+    #erreurlogMessage
+        p=message
+    form(action='/login' method='POST')
+        label(for='email') E-mail
+        input#email(type='email' name='email' required)
+        label(for='password') Mot de passe : 
+        input#password(type='password' name='password' required)
+        button(type='submit') Ob&eacute;ir
+        //- label(for='emaillog') E-mail
+        //- input#emaillog(type='email' name='emaillog' required)
+        //- label(for='password') Mot de passe : 
+        //- input#password(type='password' name='password' required)
+        //- button(type='submit') Ob&eacute;ir
+    //- #centre
+    img.accueil(src='/img/poupee.jpg' alt='poupee squid game')
+    script(defer src='/js/index.js')

@@ -1,0 +1,9 @@
+extends template.pug 
+block content 
+    h1=message
+    ul#presence
+    p#startGame  Commencer la partie ...
+    #gameArea
+    #messagecache
+    img#poupee(src='/img/poupee.jpg' alt='poupee mortelle') 
+    script(defer src='../socket.io/socket.io.min.js')

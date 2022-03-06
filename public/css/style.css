@@ -1,0 +1,141 @@
+@font-face {
+  font-family: "squid";
+  src: url("GameOfSquids-1GMVL.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  margin: 0;
+  background-color: antiquewhite;
+}
+
+nav ul {
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+  padding: 3px;
+  border: 3px solid forestgreen;
+}
+
+nav ul li {
+  margin-left: 35px;
+  margin-right: 35px;
+}
+
+nav,
+h1,
+h2,
+p,
+#retourHome {
+  font-family: "squid", sans-serif;
+}
+nav a {
+  text-decoration: none;
+  color: forestgreen;
+}
+
+h1,
+h2 {
+  text-align: center;
+}
+
+#centre {
+  height: 40vh;
+  width: 100vw;
+  background-image: url("/img/poupee-mortelle.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  bottom: 30px;
+}
+
+/* page 404 */
+#retourHome {
+  color: brown;
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+  margin-top: 4em;
+  margin-bottom: 3em;
+  font-size: 25px;
+}
+
+.soldat {
+  display: block;
+  margin: auto;
+  margin-top: 6em;
+}
+
+.accueil {
+  display: block;
+  margin: auto;
+  margin-top: 8em;
+}
+
+.bienVoir {
+  color: crimson;
+}
+#startGame{
+  width: 400px;
+  margin-left: 2em;
+  color:ghostwhite;
+  background-color: darkolivegreen;
+  text-align: center;
+  border-radius: 15px 15px;  
+}
+.startGame:hover{
+  cursor:pointer;
+  
+}
+
+#gameArea {
+  width: 100%;
+  height: 900px;
+  display: flex;
+  justify-content: space-around;
+  margin: auto;
+  border: 3px solid red;
+  
+}
+
+#poupee {
+  height: 250px;
+  width: 200px;
+  background-image: url(/img/poupee);
+  position: absolute;
+  top: 50%;
+  left: 1200px ;
+  
+}
+
+
+.parcours {
+  border: 1px solid black;
+  width: 35%;
+  height: 80%;
+}
+
+.ligne {
+  display: flex;
+  justify-content: space-between;
+}
+
+.left {
+  /* background-color: greenyellow; */
+  width: 50%;
+  height: 3.5em;
+  align-content: center;
+  border: 1px solid black;
+}
+.right {
+  /* background-color: orangered; */
+  width: 50%;
+  height: 3.5em;
+  align-content: center;
+  border: 1px solid black;
+}
+
+#messagecache{
+  color: red
+}

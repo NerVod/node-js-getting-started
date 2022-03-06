@@ -1,0 +1,16 @@
+extends template.pug 
+block content 
+    h2 Nouveau survivant ? Inscrit-toi si tu l&apos;oses ...
+    #registerMessage
+        h2.bienVoir= message
+    form(action='/register' method='POST')
+        label(for='gamertag') Nom de Joueur :
+        input#gamertag(type='text' name='gamertag' required='')
+        //- label(for='numero') Num&eacute;ro de joueur  (de 1 &agrave; 256) :
+        //- input#numero(type='number' name='numero' max='256' required='')
+        label(for='email') E-mail
+        input#email(type='email' name='email' required='')
+        label(for='password') Mot de passe : 
+        input#password(type='password' name='password' required='')
+        button(type='submit') Ob&eacute;ir
+    img.soldat(src='/img/soldat-triangle.jpg' alt='soldat au symbole triangle sur le casque')
