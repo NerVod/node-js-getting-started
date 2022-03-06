@@ -1,5 +1,5 @@
 window.document.addEventListener("DOMContentLoaded", () => {
-  console.log("index.js chargé");
+  console.log("io.js chargé");
 
   const updateOrCreatePlayer = (player) => {
     let divElement = window.document.getElementById(player.id);
@@ -20,8 +20,9 @@ window.document.addEventListener("DOMContentLoaded", () => {
   };
 
   if (typeof io !== "undefined") {
-    const socket = /*io("https://squidsun.herokuapp.com/");*/
-    io("http://192.168.1.19:3000") || io("http://localhost:8080");
+    const socket =
+      /*io("https://squidsun.herokuapp.com/");*/
+      io("http://192.168.1.19:3001");
 
     socket.on("updateOrCreatePlayer", (player) => {
       const playerElement = updateOrCreatePlayer(player);

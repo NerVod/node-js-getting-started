@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Squid Game</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Page d&apos;accueil</a></li>
+            <li><a href="/jeu">Rendez-vous dans la zone de jeu</a></li>
+            <li><a href="/register">Inscription des Recrues</a></li>
+            <li><a href="/highscore">Meilleures Recrues</a></li>
+        </ul>
+    </nav>
+    <h1>Squid Game</h1>
+    <h2>Qui franchira la ligne en vie ?</h2>
+    <p class="bienVoir"> Pr&ecirc;t pour un duel mortel ? Identifie-toi si tu l&apos;oses ...
+    <div id="erreurlogMessage">
+        <p></p>
+    </div>
+    <form action="/login" method="POST"><label for="email">E-mail</label><input id="email" type="email" name="email" required><label for="password">Mot de passe : </label><input id="password" type="password" name="password" required><button type="submit">Ob&eacute;ir</button><img class="accueil" src="/img/poupee.jpg" alt="poupee squid game"></form>
+    <script defer src="/js/index.js"></script>
+    <script src="/socket.io/socket.io.min.js"></script>
+    
+</body>
+</html>
