@@ -9,16 +9,12 @@ const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const Cookies = require("cookies");
 const objetIp = require("./public/js/ip");
-// const Mongoose = require("mongoose");
 require("dotenv").config();
 const port = process.env.PORT || 5000;
 const favicon = require("serve-favicon");
 const app = express();
 
-// détecter ip serveur à placer dans js client
 
-// console.log("résultats recherche ip objet :", objetIp);
-// console.log("résultats recherche ip :", objetIp["results"]["Ethernet 2"][0]);
 console.log("index js chargé");
 app.use("/css", express.static(path.join(__dirname, "public/css")));
 app.use("/js", express.static(path.join(__dirname, "public/js")));
@@ -91,7 +87,6 @@ app.get("*", (req, res) => {
 ///////////////////////////////// création du compte utilisateur
 app.post("/register", (req, res) => {
   if (!req.body.email || !req.body.password) {
-    // res.json({ success: false, error: 'Veuillez vous identifier'})
     res.render("register.pug", {
       message: "Veuillez vous identifier !",
     });
@@ -197,7 +192,11 @@ const httpServer = app.listen(port, () => {
   console.log(`Le serveur écoute le port ${port}`);
 });
 
-//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////  serveur websocket ////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const io = require("socket.io");
 const Server = io.Server;
@@ -221,9 +220,7 @@ ioServer.on("connection", (socket) => {
   let parsedToken = uniquePlayer.substring(13);
   // console.log("parsedToken", parsedToken);
   let dataJoueur = jwt.verify(parsedToken, process.env.JWTPRIVATEKEY);
-  // console.log(dataJoueur["id"]);
-  // console.log(dataJoueur["gamertag"]);
-  // console.log(dataJoueur["victories"]);
+
 
   ///////////////////////  création du joueur à la connexion //////////////////////
   const onePlayer = {
@@ -259,6 +256,12 @@ ioServer.on("connection", (socket) => {
 
       ioServer.emit("updateOrCreatePlayer", player);
     }
+
+    
+    ///////////////////////////////////////////////////
+    /// mécanique de partie
+    //////////////////////////////////////////////////
+
     partieEnCours = true;
     hideStart();
     rebase();
@@ -294,6 +297,11 @@ ioServer.on("connection", (socket) => {
     ioServer.emit("begin", value);
   }
 
+  ///////////////////////////////////////////////////
+  /// déplacement du joueur
+  //////////////////////////////////////////////////
+
+
   socket.on("mousemove", (position) => {
     onePlayer.top =
       parseFloat(position.y) - parseFloat(onePlayer.height) / 2 + "px";
@@ -316,8 +324,9 @@ ioServer.on("connection", (socket) => {
       onePlayer.left = 30 + "px";
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////
-    /////////////// Condition de Victoire : dépassement poupée
+    ////////////////////////////////////////////////////
+    /// Condition de Victoire : dépassement poupée
+    ////////////////////////////////////////////////////
 
     for (playerId in allPlayers) {
       const player = allPlayers[playerId];
@@ -332,8 +341,9 @@ ioServer.on("connection", (socket) => {
     ioServer.emit("updateOrCreatePlayer", onePlayer);
   });
 
-  /////////////////////////////////////////////////////////////////////////////////////
-  ///////// gestion démarrage partie et fonctions inversion sens poupée  ///////////
+  /////////////////////////////////////////////////////////////////////////
+  /// gestion démarrage partie et fonctions inversion sens poupée  ////////
+  /////////////////////////////////////////////////////////////////////////
 
   let valeur = 1;
   let value = `scaleX(${valeur})`;
@@ -348,7 +358,9 @@ ioServer.on("connection", (socket) => {
     }
   }
 
-  /////// réapparition bouton start quand un joueur attend l'arrivée ///////////
+  ///////////////////////////////////////////////////////////////////////
+  /////// réapparition bouton start quand un joueur attend l'arrivée //////
+  /////////////////////////////////////////////////////////////////////////
   function showStart() {
     for (playerId in allPlayers) {
       boutonValue = "visible";
@@ -357,43 +369,48 @@ ioServer.on("connection", (socket) => {
     }
   }
 
+  ////////////////////////////////////////////////////////////////////////
+  /////// renvoi joueur début zone
+  /////////////////////////////////////////////////////////////////////////
   function rebase() {
     for (playerId in allPlayers) {
       onePlayer.left = "30px";
     }
     ioServer.emit("updateOrCreatePlayer", onePlayer);
   }
+  ////////////////////////////////////////////////////////////////////////
   ////// fonction gangnant//////////////
+  ////////////////////////////////////////////////////////////////////////
 
   const addOneVictory = async function (winner) {
     let victories = await Database.User.findOne({
       gamertag: dataJoueur["gamertag"],
     });
-    // console.log('objet victories soit le joueur :', victories)
-    // console.log('victoires dans mongo avant ajout score',victories['victories'])
 
     victories = victories["victories"];
     console.log("victories :", victories);
     let nouvelleVictoire = parseFloat(victories) + 1;
-    // console.log('nouvellevictoire :', nouvelleVictoire)
+
 
     const gagnant = await Database.User.findOneAndUpdate(
       { gamertag: dataJoueur["gamertag"] },
       { victories: `${nouvelleVictoire}` },
       { new: true },
-      console.log(
-        "victoire ajoutée :" +
-          `${dataJoueur["gamertag"]}` +
-          " " +
-          `${nouvelleVictoire}`
-      )
+      // console.log(
+      //   "victoire ajoutée :" +
+      //     `${dataJoueur["gamertag"]}` +
+      //     " " +
+      //     `${nouvelleVictoire}`
+      // )
     );
-    console.log("gagnant", gagnant);
+    // console.log("gagnant", gagnant);
     partieEnCours = false;
     return partieEnCours;
   };
 
-  ////////////// supression jes joueurs à la déconnexion du socket////////////////
+  ////////////////////////////////////////////////////////////////////////
+  ////////////// supression jes joueurs à la déconnexion du socket////////
+  ////////////////////////////////////////////////////////////////////////
   socket.on("disconnect", () => {
     delete allPlayers[onePlayer.id];
     ioServer.emit("removePlayer", onePlayer);
